@@ -1,18 +1,15 @@
 #!/bin/bash
-
 set -e
 
 echo "Installing dependencies..."
-pip install -r requirements.txt --target ./pkg-root
+pip install -r requirements.txt
+pip install pyinstaller
 
-echo "Copying source files..."
-cp -r main.py assets README.md pkg-root/
+echo "Cleaning old builds..."
+rm -rf build dist *.spec
 
-echo "Building .pkg file..."
-mkdir -p dist
-pkgbuild --identifier com.yourdomain.pygameapp \
-         --root ./pkg-root \
-         --install-location /Applications/pc-game \
-         dist/pc-game.pkg
+echo "Building the .exe using PyInstaller..."
+pyinstaller --onefile main.py
 
-echo ".pkg file created at dist/pc-game.pkg"
+echo "Build complete. .exe file is in the dist/ folder:"
+ls -lh dist/
