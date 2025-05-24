@@ -1,30 +1,13 @@
-#!/bin/bash
+@echo off
+REM Activate the virtual environment
+call .\.venv\Scripts\activate
 
-# Create virtual environment if not exists
-python -m venv .venv
-
-# Activate the venv (Linux/macOS)
-source .venv/bin/activate
-
-# On Windows (if using Git Bash or similar), it might be:
-# source .venv/Scripts/activate
-
-# Upgrade pip (optional)
+REM Install dependencies from requirements.txt
 python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 
-# Install dependencies
-pip install -r requirements.txt
+REM Install pyinstaller
+python -m pip install pyinstaller
 
-# Install PyInstaller (to create .exe)
-pip install pyinstaller
-
-# Build the executable using PyInstaller
+REM Build the executable using pyinstaller
 pyinstaller --onefile main.py
-
-# The .exe will be in ./dist/main.exe
-
-# (Optional) Run the game directly (if you want)
-# ./dist/main.exe
-
-# Deactivate virtual environment
-deactivate
